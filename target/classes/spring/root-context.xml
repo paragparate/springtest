@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<aop:aspectj-autoproxy />
+
+	<bean id="triangle" class="com.parag.test.aop05.Triangle">
+		<property name="name" value="PP Triangle"></property>
+	</bean>
+
+	<bean id="circle" class="com.parag.test.aop05.Circle">
+		<property name="name" value="PP Circle"></property>
+	</bean>
+
+	<bean name="shapeService"
+		class="com.parag.test.aop05.ShapeService" autowire="byName"></bean>
+
+	<bean name="loggingAspect"
+		class="com.parag.test.aop05.LoggingAspect" />
+		
+	<aop:config>
+		<aop:aspect id="loggingAspect" ref="loggingAspect">
+			<aop:pointcut expression="execution(* com.parag.test.aop05.*.get*(..))" id="allGetters"/>
+			<aop:before method="loggingAdvice" pointcut-ref="allGetters"/>
+		</aop:aspect>
+	</aop:config>
+
+</beans>
+
+
+<!-- bean id="provider" name="provider" class="com.parag.test.model.HelloWorldMessageProvider"></bean> 
+	<bean id="actor01" class="com.parag.test.model03.Actor"> <property name="name" 
+	value="Allu Arjun"/> </bean> <bean id="actor02" class="com.parag.test.model03.Actor"> 
+	<property name="name" value="Sushant Singh"/> </bean> <bean id="actor03" 
+	class="com.parag.test.model03.Actor"> <property name="name" value="Sushmita 
+	Sen"/> </bean> <bean id="myCollection" class="com.parag.test.model03.CollectionClass"> 
+	<property name="stringArray" value="goal, goat, gold, gone, goad, goer"></property> 
+	<property name="arrayList"> <util:list value-type="java.lang.String"> <value>Yousuf</value> 
+	<value>Yohanna</value> <value>DJ</value> </util:list> </property> <property 
+	name="list"> <util:list> <ref bean="actor01"/> <ref bean="actor02"/> <ref 
+	bean="actor03"/> </util:list> </property> <property name="properties"> <util:properties> 
+	<prop key="firstName">Parag</prop> <prop key="lastName">Parate</prop> </util:properties> 
+	</property> <property name="hashMap"> <util:map> <entry key="actor01" value-ref="actor01"/> 
+	<entry key="actorName" value="Allu Arjun"/> </util:map> </property> <property 
+	name="set"> <util:set> <value>Some value here</value> <ref bean="actor03"/> 
+	</util:set> </property> </bean> <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
+	<property name="basenames"> <util:list> <value>messages</value> </util:list> 
+	</property> </bean> <bean id="publisher" class="com.parag.test.model04.EventPublisher"/> 
+	<bean id="eventListener" class="com.parag.test.model04.EventListener"/> <bean 
+	id="renderer" class="com.parag.test.model.LocalMessageRenderer"> <property 
+	name="messageProvider" ref="provider"></property> </bean> <bean id="player1" 
+	class="com.parag.test.model01.Player" destroy-method="destroy"> <property 
+	name="name" value="Surat Rohli"></property> <property name="age" value="28"></property> 
+	</bean> <bean id="player2" class="com.parag.test.model01.Player" destroy-method="destroy"> 
+	<property name="name" value="Dhiresh Aaina"></property> </bean> <bean id="player3" 
+	class="com.parag.test.model01.Player" destroy-method="destroy"> <property 
+	name="age" value="100"></property> </bean> <bean id="car" class="com.parag.test.model01.CarFactoryBean"></bean> 
+	<bean id="myCC" class="com.pparate.test.model02.CreditCard"> <property name="cardNumber" 
+	value="1234-5678-9876-5432"/> </bean> <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer"> 
+	<property name="customEditors"> <map> <entry key="com.pparate.test.model02.CreditCard" 
+	value="com.pparate.test.model02.CreditCardEditor"/> </map> </property> </bean -->
